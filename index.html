@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="css/style.css"/>
+    <title>Phasmophobia アイテム抽選</title>
+  </head>
+  <body>
+    <div class="card">
+      <h1>
+        Phasmophobia アイテム抽選<br /><small style="font-size: 0.9rem">（重みづけ分配版）</small>
+      </h1>
+
+      <div id="inputs">
+        <div class="input-group">
+          <label>プレイヤー 1</label>
+          <input type="text" placeholder="名前 (必須)" />
+        </div>
+        <div class="input-group">
+          <label>プレイヤー 2</label>
+          <input type="text" placeholder="名前 (必須)" />
+        </div>
+        <div class="input-group">
+          <label>プレイヤー 3</label>
+          <input type="text" placeholder="名前 (任意)" />
+        </div>
+        <div class="input-group">
+          <label>プレイヤー 4</label>
+          <input type="text" placeholder="名前 (任意)" />
+        </div>
+      </div>
+
+      <div class="checkbox-row">
+        <input id="includeCursed" type="checkbox" class="checkbox-large"/>
+        <label for="includeCursed">呪物も含める</label>
+      </div>
+
+      <div class="checkbox-row">
+        <input id="disableRandom" type="checkbox" class="checkbox-large"/>
+        <label for="disableRandom">ランダムでアイテムを1つ除外 (浄化香は除外されません)</label>
+      </div>
+
+      <details>
+        <summary>アイテムのグループ設定</summary>
+        <div class="tier-buttons" id="tierButtons"></div>
+        <div class="tier-settings" id="tierSettings"></div>
+      </details>
+
+      <button id="drawBtn">抽選</button>
+      <div class="result" id="result"></div>
+    </div>
+
+    <script src="js/item_distribution.js"></script>
+  </body>
+</html>
