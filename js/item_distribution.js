@@ -218,6 +218,19 @@ function draw() {
   function assign(item) {
     let cand = [...Array(n).keys()].filter((i) => totals[i] < targets[i]);
     if (!cand.length) cand = [...Array(n).keys()];
+
+    const exclusive = ["ビデオカメラ", "サウンドレコーダー", "フォトカメラ"];
+    if (n == 3 && exclusive.includes(item)){
+      let stricter = cand.filter(i => exclusive.every(ex => !assigned[i].includes(ex)));
+      
+      if (stricter.length){
+        cand = stricter
+      } else {
+        const others = exclusive.filter(ex => ex !== item);
+        cand = cand.filter(i => others.every(ex => !assigned[i].includes(ex)));
+      }
+    }
+
     const min = Math.min(...cand.map((i) => totals[i]));
     cand = cand.filter((i) => totals[i] === min);
     const idx = cand[(Math.random() * cand.length) | 0];
