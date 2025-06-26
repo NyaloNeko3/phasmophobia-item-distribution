@@ -13,18 +13,20 @@ const ITEM_LIST = [
   "キャンドル",
   "指向性マイク",
   "モーションセンサー",
-  "サウンドセンサー",
+  /*"サウンドセンサー",*/
+  "サウンドレコーダー",
 ];
 const DEFAULT_TIERS = {
   1: ["EMF", "温度計", "UVライト", "浄化香"],
-  2: [
-    "ゴーストライティング",
-    "DOTSプロジェクター",
-    "ビデオカメラ",
-    "スピリットボックス",
-  ],
+  2: ["ゴーストライティング", "DOTSプロジェクター", "ビデオカメラ", "スピリットボックス"],
   3: ["十字架", "塩", "フォトカメラ", "キャンドル"],
-  4: ["指向性マイク", "モーションセンサー", "サウンドセンサー"],
+  4: ["指向性マイク", "モーションセンサー", /*"サウンドセンサー",*/ "サウンドレコーダー"],
+};
+const PRESET_2_MAP = {
+  1: ["EMF", "温度計", "UVライト", "浄化香"],
+  2: ["サウンドレコーダー", "フォトカメラ", "ビデオカメラ", "スピリットボックス"],
+  3: ["十字架", "塩", "ゴーストライティング", "DOTSプロジェクター"],
+  4: ["指向性マイク", "モーションセンサー", "キャンドル"],
 };
 const DISABLE_CANDIDATES= [
   "EMF", "温度計", "UVライト", "ゴーストライティング", "DOTSプロジェクター", "ビデオカメラ", "スピリットボックス", "十字架", "塩", "フォトカメラ", "キャンドル", "指向性マイク", "モーションセンサー", "サウンドセンサー", "呪物"
@@ -89,7 +91,23 @@ presetBtn.onclick = () => {
     sel.value = val;
   });
 };
-tierButtons.append(resetBtn, presetBtn);
+
+const presetBtn2 = document.createElement("button");
+presetBtn2.textContent = "プリセット 2";
+presetBtn2.onclick = () => {
+  tierSettings.querySelectorAll("select").forEach((sel) => {
+    const it = sel.dataset.item;
+    let val = "none";
+    for (const [t, arr] of Object.entries(PRESET_2_MAP))
+      if (arr.includes(it)){
+        val = t;
+        break;
+      }
+    sel.value = val;
+  });
+};
+
+tierButtons.append(resetBtn, presetBtn, presetBtn2);
 
 function draw() {
   resultDiv.innerHTML = "";
@@ -152,6 +170,8 @@ function draw() {
       items.push(item);
     }
   });
+
+  // 呪物を含むにチェック かつ ランダム除外アイテムが呪物ではない場合は分配リストに呪物を追加する
   if (includeCursed.checked && disabledItem !== CURSED_ITEM) {
     items.push(CURSED_ITEM);
   }
