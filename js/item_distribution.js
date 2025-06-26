@@ -29,7 +29,7 @@ const PRESET_2_MAP = {
   4: ["指向性マイク", "モーションセンサー", "キャンドル"],
 };
 const DISABLE_CANDIDATES= [
-  "EMF", "温度計", "UVライト", "ゴーストライティング", "DOTSプロジェクター", "ビデオカメラ", "スピリットボックス", "十字架", "塩", "フォトカメラ", "キャンドル", "指向性マイク", "モーションセンサー", "サウンドセンサー", "呪物"
+  "EMF", "温度計", "UVライト", "ゴーストライティング", "DOTSプロジェクター", "ビデオカメラ", "スピリットボックス", "十字架", "塩", "フォトカメラ", "キャンドル", "指向性マイク", "モーションセンサー", /*"サウンドセンサー"*/"サウンドレコーダー", "呪物"
 ]
 
 const CURSED_ITEM = "呪物";
@@ -234,6 +234,7 @@ function draw() {
     const min = Math.min(...cand.map((i) => totals[i]));
     cand = cand.filter((i) => totals[i] === min);
     const idx = cand[(Math.random() * cand.length) | 0];
+
     assigned[idx].push(item);
     totals[idx]++;
   }
